@@ -62,7 +62,7 @@ public class MainDatasourceConfig {
                                                                        @Qualifier("dataSource") DataSource dataSource) {
         return builder
                 .dataSource(dataSource)
-                .packages("com.msampietro.springmultipleconnectionpools")
+                .packages("com.msampietro.springmultipleconnectionpools.module")
                 .properties(getJpaProperties())
                 .build();
     }

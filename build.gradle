@@ -26,6 +26,7 @@ dependencies {
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.20'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
     implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+    implementation group: 'com.univocity', name: 'univocity-parsers', version: '2.9.0'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

@@ -23,7 +23,7 @@ import java.util.Map;
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "processingEntityManagerFactory",
         transactionManagerRef = "processingTransactionManager",
-        basePackages = "com.msampietro.springmultipleconnectionpools")
+        basePackages = "com.msampietro.springmultipleconnectionpools.module")
 public class ProcessingDatasourceConfig {
 
     @SuppressWarnings("unchecked")
@@ -49,7 +49,7 @@ public class ProcessingDatasourceConfig {
         return builder
                 .dataSource(processingDataSource)
                 .persistenceUnit("processing")
-                .packages("com.msampietro.springmultipleconnectionpools")
+                .packages("com.msampietro.springmultipleconnectionpools.module")
                 .properties(jpaProperties)
                 .build();
     }
