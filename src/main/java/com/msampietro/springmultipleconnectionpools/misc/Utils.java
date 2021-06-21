@@ -9,7 +9,6 @@ import org.springframework.hateoas.EntityModel;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Log4j2
@@ -53,12 +52,11 @@ public final class Utils {
     }
 
     private static String parsePackageModuleName(String packageName) {
-        String moduleName = "";
-        Pattern pattern = Pattern.compile("(?<=.module.)(.*)(?=.model.)");
-        Matcher matcher = pattern.matcher(packageName);
+        var pattern = Pattern.compile("(?<=.module.)(.*)(?=.model.)");
+        var matcher = pattern.matcher(packageName);
         if (matcher.find())
-            moduleName = matcher.group(0);
-        return moduleName;
+            return matcher.group(0);
+        return "";
     }
 
     @SuppressWarnings("unchecked")

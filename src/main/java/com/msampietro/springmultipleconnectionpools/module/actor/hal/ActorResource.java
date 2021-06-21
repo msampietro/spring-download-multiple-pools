@@ -15,7 +15,7 @@ public class ActorResource extends EntityModel<ActorProjection> {
 
     public ActorResource(ActorProjection actorProjection) throws ObjectNotFoundException {
         this.actorProjection = actorProjection;
-        add(linkTo(methodOn(ActorController.class).getActor(actorProjection.getId())).withSelfRel());
+        add(linkTo(methodOn(ActorController.class).getOne(actorProjection.getId())).withSelfRel());
     }
 
     @JsonUnwrapped

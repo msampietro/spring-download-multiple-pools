@@ -14,12 +14,12 @@ public class CSVWriterWrapper implements CSVWriter {
     private final CsvWriter csvWriter;
 
     public CSVWriterWrapper(OutputStream outputStream) {
-        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
+        var bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
         csvWriter = new CsvWriter(bufferedWriter, new CsvWriterSettings());
     }
 
     public CSVWriterWrapper(OutputStream outputStream, Charset charset) {
-        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, charset));
+        var bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, charset));
         csvWriter = new CsvWriter(bufferedWriter, new CsvWriterSettings());
     }
 

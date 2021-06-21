@@ -37,7 +37,7 @@ public class MovieServiceImpl extends BaseServiceImpl<Movie, Long> implements Mo
     @Transactional
     @Override
     public ReviewResource addReviewToMovie(long movieId, ReviewDTO reviewDTO) throws ObjectNotFoundException {
-        Movie foundMovie = movieRepository.findById(movieId)
+        var foundMovie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new ObjectNotFoundException(String.format("Movie id %d not found", movieId)));
         return reviewService.addReview(foundMovie, reviewDTO);
     }

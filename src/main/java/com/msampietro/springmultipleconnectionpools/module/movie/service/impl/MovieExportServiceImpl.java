@@ -20,11 +20,11 @@ public class MovieExportServiceImpl extends BaseExportService<Movie, Long> imple
 
     @PostConstruct
     public void initialize() {
-        super.initialize(getHeaderNames(), Sort.by("name").descending());
+        super.initialize(getHeaderNames(), Sort.by("name"));
     }
 
     private String[] getHeaderNames() {
-        String[] stringHeaders = new String[4];
+        var stringHeaders = new String[4];
         stringHeaders[0] = "Movie Name";
         stringHeaders[1] = "Movie Ranking";
         stringHeaders[2] = "Actors Count";
@@ -34,7 +34,7 @@ public class MovieExportServiceImpl extends BaseExportService<Movie, Long> imple
 
     @Override
     public String[] toStringArray(Tuple tuple) {
-        String[] stringData = new String[4];
+        var stringData = new String[4];
         stringData[0] = tuple.get(0).toString();
         stringData[1] = tuple.get(1).toString();
         stringData[2] = tuple.get(2).toString();
@@ -55,9 +55,10 @@ public class MovieExportServiceImpl extends BaseExportService<Movie, Long> imple
         return selections;
     }
 
+    @SuppressWarnings("unchecked")
     public static List<Expression<?>> selectionsToExpressions(List<Selection<?>> selections) {
         return selections.stream()
-                .map(s -> (Expression<?>) s)
+                .map(Expression.class::cast)
                 .collect(Collectors.toList());
     }
 

@@ -15,7 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.io.OutputStream;
@@ -42,7 +41,7 @@ public abstract class BaseExportService<T extends BaseEntity<I>, I extends Seria
     private Sort sort;
 
     @SuppressWarnings("unchecked")
-    public BaseExportService() {
+    protected BaseExportService() {
         Class<?>[] generics = GenericTypeResolver.resolveTypeArguments(getClass(), BaseExportService.class);
         assert generics != null;
         this.modelType = (Class<T>) generics[0];
@@ -58,37 +57,37 @@ public abstract class BaseExportService<T extends BaseEntity<I>, I extends Seria
     public void exportStreamToCsv(OutputStream outputStream) {
         log.info("({}) - HikariPool Idle Connections before exportStreamToCsv: {}", this.getClass(),
                 this.getProcessingDataSourcePoolMetadata().getIdle());
-        Instant start = Instant.now();
+        var start = Instant.now();
         boolean autoCommit = getCurrentSessionAutoCommitPropertyAndSetFalse();
         boolean readOnly = getCurrentSessionReadOnlyPropertyAndSetTrue();
         TypedQuery<Tuple> typedQuery = buildTypedQuery();
-        try (CSVWriterWrapper csvWriter = new CSVWriterWrapper(outputStream);
+        try (var csvWriter = new CSVWriterWrapper(outputStream);
              Stream<Tuple> streamData = typedQuery.getResultStream()) {
             csvWriter.writeNext(headerNames);
             streamData.forEach(d -> csvWriter.writeNext(this.toStringArray(d)));
             csvWriter.flush();
         }
         restoreAutoCommitAndReadOnly(autoCommit, readOnly);
-        Instant end = Instant.now();
+        var end = Instant.now();
         log.info("({}) - Download processed in {} seconds", this.getClass(), Duration.between(start, end).toSeconds());
     }
 
     private boolean getCurrentSessionAutoCommitPropertyAndSetFalse() {
-        Session session = this.getProcessingEntityManager().unwrap(Session.class);
+        var session = this.getProcessingEntityManager().unwrap(Session.class);
         boolean currentAutoCommit = session.doReturningWork(Connection::getAutoCommit);
         session.doWork(connection -> connection.setAutoCommit(false));
         return currentAutoCommit;
     }
 
     private boolean getCurrentSessionReadOnlyPropertyAndSetTrue() {
-        Session session = this.getProcessingEntityManager().unwrap(Session.class);
+        var session = this.getProcessingEntityManager().unwrap(Session.class);
         boolean currentReadOnly = session.doReturningWork(Connection::isReadOnly);
         session.doWork(connection -> connection.setReadOnly(true));
         return currentReadOnly;
     }
 
     private TypedQuery<Tuple> buildTypedQuery() {
-        CriteriaBuilder builder = this.getProcessingEntityManager().getCriteriaBuilder();
+        var builder = this.getProcessingEntityManager().getCriteriaBuilder();
         CriteriaQuery<Tuple> query = builder.createTupleQuery();
         Root<T> root = query.from(modelType);
         query.multiselect(this.buildSelections(root, query, builder));
@@ -113,7 +112,7 @@ public abstract class BaseExportService<T extends BaseEntity<I>, I extends Seria
     }
 
     private void restoreAutoCommitAndReadOnly(boolean autoCommit, boolean readOnly) {
-        Session session = this.getProcessingEntityManager().unwrap(Session.class);
+        var session = this.getProcessingEntityManager().unwrap(Session.class);
         session.doWork(connection -> {
             connection.setAutoCommit(autoCommit);
             connection.setReadOnly(readOnly);

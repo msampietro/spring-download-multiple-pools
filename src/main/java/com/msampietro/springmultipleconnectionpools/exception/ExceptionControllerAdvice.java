@@ -36,8 +36,8 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         HttpServletRequest req = ((HttpServletRequest) ((ServletWebRequest) request).getNativeRequest());
         List<FieldError> errorList = ex.getBindingResult().getFieldErrors();
-        StringBuilder sb = new StringBuilder();
-        int i = 0;
+        var sb = new StringBuilder();
+        var i = 0;
         for (FieldError fieldError : errorList) {
             sb.append(fieldError.getField());
             sb.append(":");
@@ -47,7 +47,7 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
                 sb.append(", ");
             i++;
         }
-        String message = sb.toString();
+        var message = sb.toString();
         log.debug(LOG_ERROR_MESSAGE_TEMPLATE, ex.getClass(), ex.getMessage());
         return buildErrorResponse(ObjectNotValidException.class.getSimpleName(), message, status, req.getRequestURI());
     }
@@ -69,8 +69,8 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
     }
 
     private ResponseEntity<Object> buildErrorResponse(String type, String message, HttpStatus httpStatus, String requestUri) {
-        ApiError apiError = new ApiError(httpStatus.value(), message, processExceptionSimpleName(type), requestUri);
-        String apiErrorString = resolveApiErrorString(apiError);
+        var apiError = new ApiError(httpStatus.value(), message, processExceptionSimpleName(type), requestUri);
+        var apiErrorString = resolveApiErrorString(apiError);
         return new ResponseEntity<>(apiErrorString, httpStatus);
     }
 

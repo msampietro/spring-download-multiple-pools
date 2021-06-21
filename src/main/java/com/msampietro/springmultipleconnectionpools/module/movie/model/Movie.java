@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 public class Movie extends BaseEntity<Long> {
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
