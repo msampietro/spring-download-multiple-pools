@@ -1,0 +1,1 @@
+select setval('base_seq_gen', 814494, true);
