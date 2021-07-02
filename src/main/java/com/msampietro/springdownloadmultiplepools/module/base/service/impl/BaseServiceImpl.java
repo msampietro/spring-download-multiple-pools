@@ -42,7 +42,7 @@ public class BaseServiceImpl<T extends BaseEntity<I>, I extends Serializable> im
     @Override
     public <P extends BaseProjection<I>> EntityModel<P> findById(I id) throws ObjectNotFoundException {
         Class<P> projectionClazz = Utils.getEntityProjectionClass(modelClazz);
-        P projection = repository.findProjectedById(id, projectionClazz)
+        var projection = repository.findProjectedById(id, projectionClazz)
                 .orElseThrow(() -> new ObjectNotFoundException(String.format("Object id %s not found", id.toString())));
         return Utils.projectionToResourceMapping(modelClazz, projection);
     }

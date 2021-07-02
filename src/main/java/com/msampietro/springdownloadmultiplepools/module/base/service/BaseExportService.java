@@ -55,7 +55,7 @@ public abstract class BaseExportService<T extends BaseEntity<I>, I extends Seria
     @Transactional(value = "processingTransactionManager", propagation = Propagation.NOT_SUPPORTED)
     @Override
     public void exportStreamToCsv(OutputStream outputStream) {
-        log.info("({}) - HikariPool Idle Connections before exportStreamToCsv: {}", this.getClass(),
+        log.info("({}) - HikariPool-Processing Idle Connections before exportStreamToCsv: {}", this.getClass(),
                 this.getProcessingDataSourcePoolMetadata().getIdle());
         var start = Instant.now();
         boolean autoCommit = getCurrentSessionAutoCommitPropertyAndSetFalse();
@@ -63,6 +63,8 @@ public abstract class BaseExportService<T extends BaseEntity<I>, I extends Seria
         TypedQuery<Tuple> typedQuery = buildTypedQuery();
         try (var csvWriter = new CSVWriterWrapper(outputStream);
              Stream<Tuple> streamData = typedQuery.getResultStream()) {
+            log.info("({}) - HikariPool-Processing Idle Connections during exportStreamToCsv: {}", this.getClass(),
+                    this.getProcessingDataSourcePoolMetadata().getIdle());
             csvWriter.writeNext(headerNames);
             streamData.forEach(d -> csvWriter.writeNext(this.toStringArray(d)));
             csvWriter.flush();

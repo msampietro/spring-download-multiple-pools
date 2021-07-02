@@ -28,6 +28,7 @@ public class MainDatasourceConfig {
         Map<String, Object> hikariProperties = (Map<String, Object>) dataSourceProperties.get("hikari");
         Map<String, Object> hikariDataSourceProperties = (Map<String, Object>) hikariProperties.get("data-source-properties");
         var config = new HikariConfig();
+        config.setPoolName("HikariPool-1-Main");
         config.setJdbcUrl(dataSourceProperties.get("url").toString());
         config.setDriverClassName(dataSourceProperties.get("driverClassName").toString());
         config.setUsername(dataSourceProperties.get("username").toString());

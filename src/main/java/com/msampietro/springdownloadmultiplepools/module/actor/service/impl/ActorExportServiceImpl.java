@@ -41,7 +41,7 @@ public class ActorExportServiceImpl extends BaseExportService<Actor, Long> imple
 
     @Override
     public List<Selection<?>> buildSelections(Root<Actor> root, CriteriaQuery<Tuple> query, CriteriaBuilder builder) {
-        List<Selection<?>> selections = new ArrayList<>();
+        var selections = new ArrayList<Selection<?>>();
         selections.add(root.get("lastName"));
         selections.add(root.get("name"));
         Join<Actor, Movie> moviesJoin = root.join("movies", JoinType.LEFT);

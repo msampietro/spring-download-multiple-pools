@@ -29,10 +29,10 @@ public class ReviewServiceImpl extends BaseServiceImpl<Review, Long> implements 
 
     @Override
     public ReviewResource addReview(Movie movie, ReviewDTO reviewDTO) throws ObjectNotFoundException {
-        Review newReview = this.getObjectMapper().convertValue(reviewDTO, Review.class);
+        var newReview = this.getObjectMapper().convertValue(reviewDTO, Review.class);
         newReview.setMovie(movie);
-        Review result = reviewRepository.saveAndFlush(newReview);
-        ReviewProjection projection = projectionFactory.createProjection(ReviewProjection.class, result);
+        var result = reviewRepository.saveAndFlush(newReview);
+        var projection = projectionFactory.createProjection(ReviewProjection.class, result);
         return new ReviewResource(projection);
     }
 
@@ -40,7 +40,7 @@ public class ReviewServiceImpl extends BaseServiceImpl<Review, Long> implements 
     @Transactional(readOnly = true)
     @Override
     public ReviewResource findById(Long id) throws ObjectNotFoundException {
-        ReviewProjection.Full projection = reviewRepository.findProjectedById(id, ReviewProjection.Full.class)
+        var projection = reviewRepository.findProjectedById(id, ReviewProjection.Full.class)
                 .orElseThrow(() -> new ObjectNotFoundException(String.format("Review id %d not found", id)));
         return new ReviewResource(projection);
     }

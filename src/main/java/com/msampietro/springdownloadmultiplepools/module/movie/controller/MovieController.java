@@ -36,8 +36,7 @@ public class MovieController extends BaseControllerImpl<Movie, Long, MovieDTO> {
     @PutMapping(value = "{movieId}/reviews")
     public ResponseEntity<ReviewResource> addReviewToMovie(@PathVariable long movieId,
                                                            @Valid @RequestBody ReviewDTO reviewDTO) throws ObjectNotFoundException {
-        ReviewResource result = movieService.addReviewToMovie(movieId, reviewDTO);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(movieService.addReviewToMovie(movieId, reviewDTO));
     }
 
     @GetMapping(value = "/data")
