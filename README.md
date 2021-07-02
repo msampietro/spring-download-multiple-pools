@@ -1,4 +1,4 @@
-##Streaming database data to .csv file efficiently - A practical implementation using Spring Boot and HikariCP
+## Streaming database data to .csv file efficiently - A practical implementation using Spring Boot and HikariCP
 
 Post: https://medium.com/p/a1cda85fb33b/edit
 
@@ -6,7 +6,7 @@ Post: https://medium.com/p/a1cda85fb33b/edit
 - Java 11
 - PostgreSQL 12.3
 
-####Database initialization
+#### Database initialization
 
 CREATE DATABASE moviesdb;
 
@@ -23,14 +23,14 @@ EXECUTE __after_insert_sequence.sql__ (sets base_sequence to last inserted value
 
 (Schema and Data initialization properties are disabled in application.properties)
 
-####Required Env Vars:
+#### Required Env Vars:
 - DATABASE_HOST (e.g. localhost)
 - DATABASE_PORT (e.g. 5432)
 - DATABASE_USERNAME (e.g. postgres)
 - DATABASE_PASSWORD (e.g. postgres)
 
 
-####Project Structure Details
+#### Project Structure Details
 
 ```
 com.msampietro.springdownloadmultiplepools
