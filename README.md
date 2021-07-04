@@ -1,8 +1,8 @@
 ##Streaming database data to .csv file efficiently - A practical implementation using Spring Boot and HikariCP
 
-Post: https://medium.com/p/a1cda85fb33b/edit
+Post: https://medium.com/@msampietro93/hikaricp-multiple-connection-pools-over-single-physical-database-a1cda85fb33b
 
-- Spring Boot 2.4.5
+- Spring Boot 2.5.2
 - Java 11
 - PostgreSQL 12.3
 
@@ -38,34 +38,41 @@ com.msampietro.springdownloadmultiplepools
 └───config (Datasources config)
 │   │   MainDatasourceConfig.java (**important)
 │   │   ProcessingDatasourceConfig.java (**important)
-│   │   SerializableToStringConverter.java (IGNORE - Serializable error workaround)
-│   │   WebMvcConfig.java (IGNORE - Serializable error workaround)
 │   │
 │   
 └───exception (ControllerAdvice and custom exceptions)
 │   │   ...
 │ 
-└───misc (Utils and the CSVWriterWrapper interface & impl)
-│   │   Utils.java (IGNORE - base service class utilities)
-│   │   CSVWriter.java (**important - csv interface)
-│   │   CSVWriterWrapper.java (**important - csv impl with univocity parsers)
-│
+└───misc (Utils and CSVWriterWrapper interface & impl)
+│   │   ...
+│   │   CSVWriter.java (**important)
+│   │   CSVWriterWrapper.java (**important)
 │  
 └───module (Domain classes)
     │
     └───base (Base abstract classes and interfaces for controllers, services, models, dtos, etc.)
     │   │
     │   └───service
-    │       │   ExportService.java (**important - the export interface)
-    │       │   BaseExportService.java (**important - the export abstract class)
+    │       │   ExportService.java (**important)
+    │       │   BaseExportService.java (**important)
     │
-    └───actor (actor domain classes and the ActorExportServiceImpl.java)
-    │   │   ...
+    └───actor (Actor domain classes)
+    │   │
+    │   │
+    │   └───service
+    │       │
+    │       └───impl
+    │           │   ActorExportServiceImpl.java (**important)
     │
-    └───movie (movie domain classes and the MovieExportServiceImpl.java)
-    │   │   ...
+    └───movie (Movie domain classes)
+    │   │
+    │   │
+    │   └───service
+    │       │
+    │       └───impl
+    │           │   MovieExportServiceImpl.java (**important)
     │
-    └───review (review domain classes - no download implemented)
+    └───review (Review domain classes - no download implemented)
         │   ...
     
 ```

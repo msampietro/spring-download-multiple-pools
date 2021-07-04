@@ -103,7 +103,7 @@ public abstract class BaseExportService<T extends BaseEntity<I>, I extends Seria
 
     /**
      * HINT_FETCH_SIZE ignored if autoCommit = true.
-     * If pool autoCommit is true then it should be disable for method execution
+     * If pool autoCommit is true then it should be disabled for method execution
      **/
     private Map<String, Object> buildQueryHints() {
         Map<String, Object> queryHints = new HashMap<>();
