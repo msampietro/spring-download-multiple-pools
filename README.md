@@ -51,22 +51,20 @@ com.msampietro.springdownloadmultiplepools
 └───module (Domain classes)
     │
     └───base (Base abstract classes and interfaces for controllers, services, models, dtos, etc.)
-    │   │
+    │   │   ...
     │   └───service
     │       │   ExportService.java (**important)
     │       │   BaseExportService.java (**important)
     │
     └───actor (Actor domain classes)
-    │   │
-    │   │
+    │   │   ...
     │   └───service
     │       │
     │       └───impl
     │           │   ActorExportServiceImpl.java (**important)
     │
     └───movie (Movie domain classes)
-    │   │
-    │   │
+    │   │   ...
     │   └───service
     │       │
     │       └───impl
