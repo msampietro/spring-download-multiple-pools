@@ -1,6 +1,6 @@
 ## Streaming database data to .csv file efficiently - A practical implementation using Spring Boot and HikariCP
 
-Post: https://medium.com/@msampietro93/hikaricp-multiple-connection-pools-over-single-physical-database-a1cda85fb33b
+Post: https://sampietromartin.medium.com/hikaricp-multiple-connection-pools-over-single-physical-database-a1cda85fb33b
 
 - Spring Boot 2.5.2
 - Java 11
